@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h1> Starting With Openboard</h1> -->
+    <!-- canvas -->
+    <!-- drwaing board -->
+    <!-- width => 300px, height => 150px -->
+    <canvas class="board"></canvas>
+    <!-- object -->
+    <script>
+        // alert("JS Ran");
+        // window => represents current tab
+        // document => represents tab html
+        let canvas = document.querySelector(".board");
+        // increase the size of canvas
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        // get browser tool => draw
+        // 2d, 3d, webgl
+        let tool = canvas.getContext("2d");
+        // tool.fillStyle = "green";
+        // tool.fillRect(0,0,100,100);
+        // tool.fillStyle = "blue";
+        // tool.fillRect(100,100,100,100);
+        tool.strokeStyle = "blue";
+        // tool.lineWidth = 10;    
+        // tool.beginPath();
+        // tool.moveTo(20,20);    
+        // tool.lineTo(100,100);
+        // tool.stroke();
+        let initialMouseX = null;
+        let initialMouseY = null;
+        let isMouseDown = false;
+        window.addEventListener("mousedown",onmousedown);
+        function onmousedown(obj){
+            // line initial point
+            // drawing process will start
+            // console.log("Mouse Down Occured",Math.random());
+            // console.log("Mouse Down desc", obj);
+            initialMouseX = obj.clientX;
+            initialMouseY = obj.clientY;
+            isMouseDown = true;
+            tool.beginPath();
+            tool.moveTo(initialMouseX,initialMouseY);
+        }
+        window.addEventListener("mouseup",function(obj){
+            // console.log("Mouse up occurred", Math.random());
+            // console.log("Mouse up desc",obj);
+            //let finalMouseX = obj.clientX;
+            //let finalMouseY = obj.clientY;
+            isMouseDown = false;
+            // if(finalMouseX == initialMouseX && finalMouseY == initialMouseY)
+            // {
+            //     // do nothing
+            // }
+            // else{
+            //     tool.beginPath();
+            //     tool.moveTo(initialMouseX,initialMouseY);
+            //     tool.lineTo(finalMouseX,finalMouseY);
+            //     tool.stroke();
+            // }
+        })
+        //Actual Draw
+        window.addEventListener("mousemove",function(e){
+            let finalMouseX = e.clientX;
+            let finalMouseY = e.clientY;
+            if(isMouseDown == true){
+                //user pressed the and then he is moving
+                tool.lineTo(finalMouseX,finalMouseY);
+                tool.stroke();
+            }
+        })
+    </script>
+</body>
+</html>
